@@ -12,7 +12,7 @@ function App() {
 
   useEffect(() => {
     axios
-      .get('http://localhost:3001/api/forecast')
+      .get(`${process.env.REACT_APP_API_URL}/forecast`)
       .then((response) => {
         setForecast(response.data);
         setLoading(false);

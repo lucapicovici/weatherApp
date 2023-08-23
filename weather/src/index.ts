@@ -13,7 +13,7 @@ const app = express();
 const port = 3001;
 const baseUrl = 'https://api.weather.gov/';
 const MONGO_URI =
-  process.env.DEV === 'production'
+  process.env.NODE_ENV === 'production'
     ? process.env.MONGO_URI!
     : 'mongodb://localhost:27017/weatherApp';
 
@@ -67,7 +67,7 @@ const start = async () => {
   try {
     await mongoose.connect(MONGO_URI);
     console.log(
-      process.env.DEV === 'production'
+      process.env.NODE_ENV === 'production'
         ? 'Connected to MongoDB Atlas!'
         : 'Connected to local MongoDB!'
     );
@@ -79,7 +79,7 @@ const start = async () => {
 
   app.listen(port, () => {
     console.log(
-      `Server is running on port ${port} in ${process.env.DEV} environment`
+      `Server is running on port ${port} in ${process.env.NODE_ENV} environment`
     );
   });
 };
