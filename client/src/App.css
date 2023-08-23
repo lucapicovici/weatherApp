@@ -1,0 +1,21 @@
+.App {
+  text-align: center;
+}
+
+.title {
+  margin-top: 50px;
+}
+
+.location {
+  margin-bottom: 50px;
+}
+
+.form-select {
+  width: 300px;
+  margin: 0 auto;
+}
+
+.avgTemperature {
+  margin-top: 20px;
+  margin-bottom: 50px;
+}
