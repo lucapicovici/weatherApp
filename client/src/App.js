@@ -12,7 +12,7 @@ function App() {
 
   useEffect(() => {
     axios
-      .get(`${process.env.REACT_APP_API_URL}/forecast`)
+      .get(`https://weatherapp-lucapicovici.onrender.com/api/forecast`)
       .then((response) => {
         setForecast(response.data);
         setLoading(false);

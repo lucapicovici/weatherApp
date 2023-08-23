@@ -19,10 +19,7 @@ const MONGO_URI =
 
 app.use(
   cors({
-    origin:
-      process.env.NODE_ENV === 'development'
-        ? 'http://localhost:3000'
-        : `${process.env.FRONTEND_URL}`,
+    origin: 'https://weatherapp-client-lucapicovici.onrender.com',
   })
 );
 
