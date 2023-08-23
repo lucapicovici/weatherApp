@@ -2,18 +2,26 @@ import express, { Request, Response } from 'express';
 import axios from 'axios';
 import mongoose from 'mongoose';
 import cors from 'cors';
+import path from 'path';
 import { Forecast } from '../models/forecast';
+
+require('dotenv').config({
+  path: path.join(__dirname, 'config', '.env'),
+});
 
 const app = express();
 const port = 3001;
+const baseUrl = 'https://api.weather.gov/';
+const MONGO_URI =
+  process.env.DEV === 'production'
+    ? process.env.MONGO_URI!
+    : 'mongodb://localhost:27017/weatherApp';
 
 app.use(
   cors({
     origin: 'http://localhost:3000',
   })
 );
-
-const baseUrl = 'https://api.weather.gov/';
 
 async function getForecast(city: string, lat: number, lng: number) {
   const response = await axios.get(`${baseUrl}/points/${lat},${lng}`);
@@ -38,7 +46,7 @@ async function getForecast(city: string, lat: number, lng: number) {
   return forecast;
 }
 
-app.get('/forecast', async (req: Request, res: Response) => {
+app.get('/api/forecast', async (req: Request, res: Response) => {
   try {
     await Forecast.deleteMany({});
 
@@ -57,8 +65,12 @@ app.get('/forecast', async (req: Request, res: Response) => {
 
 const start = async () => {
   try {
-    await mongoose.connect('mongodb://localhost:27017/weatherApp');
-    console.log('Connected to MongoDB!');
+    await mongoose.connect(MONGO_URI);
+    console.log(
+      process.env.DEV === 'production'
+        ? 'Connected to MongoDB Atlas!'
+        : 'Connected to local MongoDB!'
+    );
 
     await Forecast.deleteMany({});
   } catch (error) {
@@ -66,7 +78,9 @@ const start = async () => {
   }
 
   app.listen(port, () => {
-    console.log(`Server is running on port ${port}`);
+    console.log(
+      `Server is running on port ${port} in ${process.env.DEV} environment`
+    );
   });
 };
 

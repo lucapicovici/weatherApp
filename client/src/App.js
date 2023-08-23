@@ -12,7 +12,7 @@ function App() {
 
   useEffect(() => {
     axios
-      .get('http://localhost:3001/forecast')
+      .get('http://localhost:3001/api/forecast')
       .then((response) => {
         setForecast(response.data);
         setLoading(false);
@@ -79,13 +79,16 @@ function App() {
     <div className="App">
       <div className="container">
         <div className="title">
-          <h1>Forecast App</h1>
+          <h1>Weather App</h1>
           <hr></hr>
         </div>
-        <div className="location">
-          Select location
+        <div className="location mb-5">
+          <label htmlFor="selectLocation" className="form-label">
+            Select location
+          </label>
           <select
             className="form-select"
+            id="selectLocation"
             aria-label="Default select example"
             value={location}
             onChange={(e) => setLocation(e.target.value)}
