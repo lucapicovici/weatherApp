@@ -12,14 +12,11 @@ require('dotenv').config({
 const app = express();
 const port = 3001;
 const baseUrl = 'https://api.weather.gov/';
-const MONGO_URI =
-  process.env.NODE_ENV === 'production'
-    ? process.env.MONGO_URI!
-    : 'mongodb://localhost:27017/weatherApp';
+const MONGO_URI = process.env.MONGO_URI!;
 
 app.use(
   cors({
-    origin: 'https://weatherapp-client-lucapicovici.onrender.com',
+    origin: process.env.FRONTEND_URL,
   })
 );
 
